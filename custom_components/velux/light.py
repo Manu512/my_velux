@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from homeassistant.components.light import ATTR_BRIGHTNESS, ColorMode, LightEntity
+from homeassistant.components.light import ATTR_BRIGHTNESS, ColorMode, Light
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -31,7 +31,7 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class VeluxLight(VeluxNodeEntity, LightEntity):
+class VeluxLight(VeluxNodeEntity, Light):
     """Representation of a Velux light."""
 
     def __init__(self, node: Node, entry: ConfigEntry) -> None:
