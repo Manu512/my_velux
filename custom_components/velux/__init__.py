@@ -40,6 +40,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if mac_address is not None:
         connections = {(dr.CONNECTION_NETWORK_MAC, mac_address)}
 
+    hardware_version = pyvlx.klf200.version.hardwareversion
+    software_version = pyvlx.klf200.version.softwareversion
+
     device_registry = dr.async_get(hass)
     device_registry.async_get_or_create(
         config_entry_id=entry.entry_id,
@@ -48,8 +51,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         manufacturer="Velux",
         name=entry.unique_id,
         model="KLF200",
-        hw_version=pyvlx.klf200.version.hardwareversion,
-        sw_version=pyvlx.klf200.version.softwareversion,
+        hw_version=str(hardware_version) if hardware_version is not None else None,
+        sw_version=str(software_version) if software_version is not None else None,
     )
 
     # Load nodes (devices) and scenes from API
